@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Profile - {{ user.username }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>{{ user.username }}'s Profile</h2>
+    <p><strong>Bio:</strong> {{ user.bio }}</p>
+    <p><strong>Joined:</strong> {{ user.created_at.strftime('%B %d, %Y') }}</p>
+    <p><strong>Total Posts:</strong> {{ posts_count }}</p>
+    <p><strong>Friends:</strong> {{ friends_count }}</p>
+
+    <h4>Recent Notifications:</h4>
+    <ul>
+        {% for note in latest_notifications %}
+            <li>{{ note.message }} <small class="text-muted">({{ note.timestamp.strftime('%b %d %H:%M') }})</small></li>
+        {% endfor %}
+        {% if not latest_notifications %}
+            <li>No recent notifications.</li>
+        {% endif %}
+    </ul>
+
+    <a href="{{ url_for('edit_profile') }}" class="btn btn-primary mt-2">Edit Profile</a>
+</div>
+{% endblock %}

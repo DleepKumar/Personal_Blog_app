@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Search Users</h2>
+<form method="POST">
+    <input type="text" name="query" placeholder="Enter username" required>
+    <button type="submit">Search</button>
+</form>
+
+{% if results %}
+    <ul>
+    {% for user in results %}
+        <li>{{ user.username }} 
+            <form action="{{ url_for('send_request', receiver_id=user.id) }}" method="POST" style="display:inline;">
+                <button type="submit">Send Friend Request</button>
+            </form>
+        </li>
+    {% endfor %}
+    </ul>
+{% endif %}
+{% endblock %}

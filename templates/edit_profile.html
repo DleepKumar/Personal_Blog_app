@@ -1,0 +1,15 @@
+<form method="POST" enctype="multipart/form-data">
+    <!-- Bio -->
+    <label for="bio">Bio:</label>
+    <textarea name="bio">{{ user.bio }}</textarea>
+
+    <!-- Photo -->
+    <label for="photo">Profile Photo:</label>
+    <input type="file" name="photo">
+
+    <!-- Wallpaper -->
+    <label for="wallpaper">Wallpaper:</label>
+    <input type="file" name="wallpaper">
+
+    <button type="submit">Save</button>
+</form>

@@ -1,0 +1,13 @@
+<!doctype html>
+<html>
+<head><title>Create Post</title></head>
+<body>
+  <h2>Create New Post</h2>
+  <form method="post">
+    <input type="text" name="title" placeholder="Title" required><br>
+    <textarea name="content" placeholder="Write your post..." required></textarea><br>
+    <input type="submit" value="Publish">
+  </form>
+  <a href="{{ url_for('home') }}">Back to Home</a>
+</body>
+</html>

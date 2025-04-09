@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+<head><title>{{ user.username }}'s Posts</title></head>
+<body>
+    <h1>Posts by {{ user.username }}</h1>
+    {% for post in posts %}
+        <div>
+            <h2>{{ post.title }}</h2>
+            <p>{{ post.content }}</p>
+        </div>
+        <hr>
+    {% endfor %}
+    <a href="{{ url_for('home') }}">Back to Home</a>
+</body>
+</html>

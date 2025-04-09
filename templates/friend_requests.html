@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Friend Requests</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 40px;
+        }
+        .btn {
+            padding: 6px 12px;
+            margin: 5px;
+            border-radius: 4px;
+            text-decoration: none;
+            color: white;
+        }
+        .accept {
+            background-color: green;
+        }
+        .reject {
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Friend Requests</h1>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class="flashes">
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    {% if requests %}
+        <ul>
+        {% for r in requests %}
+            <li>
+                {{ r.sender_id }} sent you a request.
+                <a class="btn accept" href="{{ url_for('accept_request', request_id=r.id) }}">Accept</a>
+                <a class="btn reject" href="{{ url_for('reject_request', request_id=r.id) }}">Reject</a>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No friend requests.</p>
+    {% endif %}
+
+    <a href="{{ url_for('home') }}">Back to Home</a>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home - Personal Blog</title>
+    <style>
+        nav {
+            background-color: #f0f0f0;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        nav a {
+            text-decoration: none;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 5px;
+        }
+        nav a:hover {
+            background-color: #0056b3;
+        }
+        .flash-message {
+            color: green;
+            font-weight: bold;
+            text-align: center;
+            margin: 10px 0;
+        }
+        .user-info {
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        .post {
+            border: 1px solid #ddd;
+            margin: 20px auto;
+            padding: 15px;
+            max-width: 800px;
+            border-radius: 5px;
+        }
+        .notifications {
+            max-width: 800px;
+            margin: 10px auto;
+            padding: 10px;
+            background-color: #fffbe6;
+            border: 1px solid #ffecb3;
+            border-radius: 5px;
+        }
+    </style>
+
+    {% if user.wallpaper %}
+    <style>
+      body {
+        background-image: url("{{ url_for('static', filename='uploads/' + user.wallpaper) }}");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-attachment: fixed;
+      }
+    </style>
+    {% endif %}
+</head>
+<body>
+
+    <nav>
+        <a href="{{ url_for('home') }}">Home</a>
+        {% if session.get('user_id') %}
+            <a href="{{ url_for('create') }}">Create Post</a>
+            <a href="{{ url_for('search_users') }}">Search Users</a>
+            <a href="{{ url_for('friend_requests') }}">Friend Requests</a>
+            <a href="{{ url_for('friends') }}">Friends</a>
+            <a href="{{ url_for('profile') }}">Profile</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        {% else %}
+            <a href="{{ url_for('login') }}">Login</a>
+            <a href="{{ url_for('register') }}">Register</a>
+        {% endif %}
+    </nav>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="flash-message">
+          {% for message in messages %}
+            {{ message }}
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    {% if user %}
+    <div class="user-info">
+        <h2>Welcome, {{ user.username }}!</h2>
+        <p><strong>Bio:</strong> {{ user.bio }}</p>
+    </div>
+
+    {% if notifications %}
+    <div class="notifications">
+        <h3>Notifications</h3>
+        <ul>
+            {% for note in notifications %}
+                <li>{{ note.message }} <small>({{ note.timestamp.strftime('%Y-%m-%d %H:%M') }})</small></li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    {% endif %}
+
+    <h1 style="text-align:center;">All Blog Posts</h1>
+    {% for post in posts %}
+    <div class="post">
+        <h2>{{ post.title }}</h2>
+        <p>{{ post.content }}</p>
+        <p><strong>By:</strong> <a href="{{ url_for('user_posts', username=post.user.username) }}">{{ post.user.username }}</a></p>
+        <p><small>Posted on: {{ post.timestamp.strftime('%Y-%m-%d %H:%M') }}</small></p>
+    </div>
+    {% endfor %}
+
+</body>
+</html>

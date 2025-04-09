@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Friends</title>
+</head>
+<body>
+    <h1>Accepted Friends</h1>
+
+    {% if friends %}
+        <ul>
+        {% for friend in friends %}
+            <li>{{ friend.username }}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No friends yet.</p>
+    {% endif %}
+
+    <a href="{{ url_for('home') }}">Back to Home</a>
+</body>
+</html>
