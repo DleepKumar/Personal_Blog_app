@@ -8,8 +8,8 @@ import os
 
 # --- Flask Setup ---
 app = Flask(__name__)
-app.secret_key = os.urandom(24)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
+app.secret_key ="d3591a203b2b562742bc1b2a6a9cb7d4"
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://personal_blog_db_xdyd_user:SyC5dl4Gja6Hbzpfuupd6zizzbZszE4N@dpg-cvrlal3e5dus738bse50-a.oregon-postgres.render.com/personal_blog_db_xdyd"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOAD_FOLDER'] = os.path.join(app.root_path, 'static', 'uploads')
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
