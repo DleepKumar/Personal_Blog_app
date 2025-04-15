@@ -8,6 +8,14 @@ import os
 
 # --- Flask Setup ---
 app = Flask(__name__)
+@app.route("/routes")
+def list_routes():
+    output = []
+    for rule in app.url_map.iter_rules():
+        methods = ','.join(rule.methods)
+        line = f"{rule.endpoint:25s} | {methods:20s} | {rule.rule}"
+        output.append(line)
+    return "<pre>" + "\n".join(sorted(output)) + "</pre>"
 app.secret_key ="d3591a203b2b562742bc1b2a6a9cb7d4"
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://personal_blog_db_xdyd_user:SyC5dl4Gja6Hbzpfuupd6zizzbZszE4N@dpg-cvrlal3e5dus738bse50-a.oregon-postgres.render.com/personal_blog_db_xdyd"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
